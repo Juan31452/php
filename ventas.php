@@ -7,6 +7,21 @@ $gsent->execute();
 
 $resultado = $gsent->fetchAll();
 //var_dump($resultado);
+
+//EDITAR DATOS
+if (isset($_GET['Idventa']))
+{
+    $Idventa = $_GET['Idventa'];
+    $sql_unico = 'SELECT * FROM Ventas WHERE Idventa=?';
+    $gsent_unico= $pdo->prepare($sql_unico);
+    $gsent_unico->execute(array(
+    $Idventa   
+    ));
+    $resultado_unico = $gsent_unico->fetch();
+      //var_dump($resultado_unico); 
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +48,32 @@ $resultado = $gsent->fetchAll();
                     <button>Agregar</button>
                 </form>
             <?php endif ?>
-        </div> 
+
+            <?php if ($_GET): ?>
+            <h2>EDITAR DATOS</h2>  
+            <form method="GET" action="editarventas.php" >
+                FECHA:</br> 
+                <input type="text" class="formulario" name="Fecha"
+                value="<?php echo $resultado_unico['Fecha'] ?>"></br>
+                
+                PRODUCTO:</br> 
+                <input type="text" class="formulario" name="Producto"
+                value="<?php echo $resultado_unico['Producto'] ?>"></br>
+                
+                CANTIDAD:</br> 
+                <input type="text" class="formulario" name="Cantidad"
+                value="<?php echo $resultado_unico['Cantidad'] ?>"></br>
+                
+                VALOR UNITARIO:</br> 
+                <input type="text" class="formulario" name="Valor_Unitario"
+                value="<?php echo $resultado_unico['Valor_Unitario'] ?>"></br>
+                    
+                <input type="hidden" name="Idventa"
+                value="<?php echo $resultado_unico['Idventa'] ?>">
+                <button>Actualizar</button>
+            </form>
+            <?php endif ?>
+                </div> 
         </br>
         <div class="contenedor1" >
          <div class="fila">
@@ -56,6 +96,7 @@ $resultado = $gsent->fetchAll();
                                      <td><?php echo $rs['Cantidad']?></td>
                                      <td><?php echo $rs['Valor_Unitario']?></td>
                                      <td><?php echo $rs['Valor_Total']?></td>
+                                     <td><a href="ventas.php?Idventa=<?php echo $rs['Idventa']?>"> Editar </a></td>
                     
                                  </tr>
                                 <?php endforeach?>                 
