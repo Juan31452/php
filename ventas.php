@@ -8,6 +8,16 @@ $gsent->execute();
 $resultado = $gsent->fetchAll();
 //var_dump($resultado);
 
+//SUMAR DATOS
+$sqlsuma = 'SELECT SUM(Valor_Total) AS Total FROM Ventas';
+$gsuma= $pdo->prepare($sqlsuma);
+$gsuma->execute();
+
+$resultadosuma = $gsuma->fetchAll();
+echo "<pre>";
+var_dump($resultadosuma);
+echo "</pre>";
+
 //EDITAR DATOS
 if (isset($_GET['Idventa']))
 {
@@ -50,30 +60,31 @@ if (isset($_GET['Idventa']))
             <?php endif ?>
 
             <?php if ($_GET): ?>
-            <h2>EDITAR DATOS</h2>  
-            <form method="GET" action="editarventas.php" >
-                FECHA:</br> 
-                <input type="text" class="formulario" name="Fecha"
-                value="<?php echo $resultado_unico['Fecha'] ?>"></br>
-                
-                PRODUCTO:</br> 
-                <input type="text" class="formulario" name="Producto"
-                value="<?php echo $resultado_unico['Producto'] ?>"></br>
-                
-                CANTIDAD:</br> 
-                <input type="text" class="formulario" name="Cantidad"
-                value="<?php echo $resultado_unico['Cantidad'] ?>"></br>
-                
-                VALOR UNITARIO:</br> 
-                <input type="text" class="formulario" name="Valor_Unitario"
-                value="<?php echo $resultado_unico['Valor_Unitario'] ?>"></br>
+                <h2>EDITAR DATOS</h2>  
+                <form method="GET" action="editarventas.php" >
+                    FECHA:</br> 
+                    <input type="text" class="formulario" name="Fecha"
+                    value="<?php echo $resultado_unico['Fecha'] ?>"></br>
                     
-                <input type="hidden" name="Idventa"
-                value="<?php echo $resultado_unico['Idventa'] ?>">
-                <button>Actualizar</button>
-            </form>
+                    PRODUCTO:</br> 
+                    <input type="text" class="formulario" name="Producto"
+                    value="<?php echo $resultado_unico['Producto'] ?>"></br>
+                    
+                    CANTIDAD:</br> 
+                    <input type="text" class="formulario" name="Cantidad"
+                    value="<?php echo $resultado_unico['Cantidad'] ?>"></br>
+                    
+                    VALOR UNITARIO:</br> 
+                    <input type="text" class="formulario" name="Valor_Unitario"
+                    value="<?php echo $resultado_unico['Valor_Unitario'] ?>"></br>
+                        
+                    <input type="hidden" name="Idventa"
+                    value="<?php echo $resultado_unico['Idventa'] ?>">
+                    <button>Actualizar</button>
+                </form>
             <?php endif ?>
-                </div> 
+        </div> 
+
         </br>
         <div class="contenedor1" >
          <div class="fila">
@@ -107,6 +118,11 @@ if (isset($_GET['Idventa']))
                </div> 
             </div>
        </div>
+       
+       <div class="contenedor2" >
+          <p> TOTAL </p>
+       </div>    
+      
     </body>
 </html>
 

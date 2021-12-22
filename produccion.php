@@ -50,6 +50,8 @@ $resultado = $gsent->fetchAll();
                                      <td width="140"><?php echo $rs['Fecha']; ?></td>
                                      <td><?php echo $rs['Producto']; ?></td>
                                      <td><?php echo $rs['Cantidad']?></td>
+                                     <td><a href="produccion.php?Idproduccion=<?php echo $rs['Idproduccion']?>"> Editar </a></td>
+
                                  </tr>
                                 <?php endforeach?>                 
                            </div>    
