@@ -1,7 +1,7 @@
 <?php
 include_once('conexion2.php');
 //LEER DATOS se reemplaza por BUSCAR DATOS
-$sql = 'SELECT * FROM Ventas';
+$sql = 'SELECT * FROM Ventas WHERE MONTH(Fecha) = 01 AND YEAR(Fecha) = 2022';
 $gsent= $pdo->prepare($sql);
 $gsent->execute();
 
@@ -9,11 +9,12 @@ $resultado = $gsent->fetchAll();
 //var_dump($resultado);
 
 //SUMAR DATOS
-$sqlsuma = 'SELECT SUM(Valor_Total) AS Total FROM Ventas';
+$sqlsuma = 'SELECT SUM(Valor_Total) , SUM(Cantidad) 
+FROM Ventas WHERE MONTH(Fecha) = 01 AND YEAR(Fecha) = 2022';
 $gsuma= $pdo->prepare($sqlsuma);
 $gsuma->execute();
 
-$resultadosuma = $gsuma->fetchAll();
+$resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
 echo "<pre>";
 var_dump($resultadosuma);
 echo "</pre>";
@@ -120,7 +121,8 @@ if (isset($_GET['Idventa']))
        </div>
        
        <div class="contenedor2" >
-          <p> TOTAL </p>
+         <p> CANTIDAD : <?php echo $totalsuma =$resultadosuma[1]?> </p>
+         <p> TOTAL : <?php echo $totalsuma =$resultadosuma[0]?> </p>
        </div>    
       
     </body>
