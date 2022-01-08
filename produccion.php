@@ -1,13 +1,26 @@
 <?php
 include_once('conexion2.php');
 //LEER DATOS se reemplaza por BUSCAR DATOS
-$sql = 'SELECT * FROM Produccion';
+$sql = 'SELECT * FROM Produccion WHERE MONTH(Fecha) = 01 AND YEAR(Fecha) = 2022';
 $gsent= $pdo->prepare($sql);
 $gsent->execute();
 
 $resultado = $gsent->fetchAll();
 //var_dump($resultado);
+
+//SUMAR DATOS
+$sqlsuma = 'SELECT  SUM(Cantidad) 
+FROM Produccion WHERE MONTH(Fecha) = 01 AND YEAR(Fecha) = 2022';
+$gsuma= $pdo->prepare($sqlsuma);
+$gsuma->execute();
+
+$resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
+echo "<pre>";
+var_dump($resultadosuma);
+echo "</pre>";
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -61,6 +74,11 @@ $resultado = $gsent->fetchAll();
                </div> 
             </div>
        </div>
+
+       <div class="contenedor2" >
+         <p> CANTIDAD : <?php echo $totalsuma =$resultadosuma[0]?> </p>
+        </div>
+
     </body>
 </html>
 
