@@ -1,7 +1,7 @@
 <?php
 include_once('conexion2.php');
 //LEER DATOS se reemplaza por BUSCAR DATOS
-$sql = 'SELECT * FROM Ventas WHERE MONTH(Fecha) = 01 AND YEAR(Fecha) = 2022';
+$sql = 'SELECT * FROM Ventas WHERE MONTH(Fecha) = 02 AND YEAR(Fecha) = 2022';
 $gsent= $pdo->prepare($sql);
 $gsent->execute();
 
@@ -10,7 +10,7 @@ $resultado = $gsent->fetchAll();
 
 //SUMAR DATOS
 $sqlsuma = 'SELECT SUM(Valor_Total) , SUM(Cantidad) 
-FROM Ventas WHERE MONTH(Fecha) = 01 AND YEAR(Fecha) = 2022';
+FROM Ventas WHERE MONTH(Fecha) = 02 AND YEAR(Fecha) = 2022';
 $gsuma= $pdo->prepare($sqlsuma);
 $gsuma->execute();
 

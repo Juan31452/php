@@ -1,6 +1,7 @@
 <?php
 include_once('conexion2.php');
 //LEER DATOS se reemplaza por BUSCAR DATOS
+
 $sql = 'SELECT * FROM Produccion WHERE MONTH(Fecha) = 01 AND YEAR(Fecha) = 2022';
 $gsent= $pdo->prepare($sql);
 $gsent->execute();
@@ -47,6 +48,48 @@ echo "</pre>";
         </div> 
         </br>
         <div class="contenedor1" >
+            <form method="GET" >
+                <select name="mes" id="mes">
+                    <option>01</option>
+                    <option>02</option>  
+                </select>
+                <select name="año" id="año">
+                    <option>2022</option>
+                    <option>2021</option>  
+                </select>
+                <input class="button" type="submit" name ="enviar" value="BUSCAR" />
+            </form>
+
+            <?php
+              if(isset($_GET['enviar']))
+              {
+                  
+                    $año = $_GET['año'];
+                    $mes = $_GET['mes'];
+                    //echo $mes;
+                    //echo $año;
+                    $sql = 'SELECT * FROM Produccion WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
+                    $gsent= $pdo->prepare($sql);
+                    $gsent->execute(array($mes,$año));
+        
+                    $resultado = $gsent->fetchAll();
+                    //var_dump($resultado);
+                    
+                    //SUMAR DATOS
+                    $sqlsuma = 'SELECT  SUM(Cantidad) 
+                    FROM Produccion WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
+                    $gsuma= $pdo->prepare($sqlsuma);
+                    $gsuma->execute(array($mes,$año));
+
+                    $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
+                    echo "<pre>";
+                    var_dump($resultadosuma);
+                    echo "</pre>";
+                }  
+            
+            ?>
+
+            </br>
          <div class="fila">
               <div class="columna">
                  <table border=1>
@@ -77,6 +120,9 @@ echo "</pre>";
 
        <div class="contenedor2" >
          <p> CANTIDAD : <?php echo $totalsuma =$resultadosuma[0]?> </p>
+         <? $mes = isset($_GET['mes']);
+          echo $mes
+         ?>
         </div>
 
     </body>
