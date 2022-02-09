@@ -1,24 +1,28 @@
 <?php
 include_once('conexion2.php');
 //LEER DATOS se reemplaza por BUSCAR DATOS
-
-$sql = 'SELECT * FROM Produccion WHERE MONTH(Fecha) = 01 AND YEAR(Fecha) = 2022';
+$mes_actual = date('m');
+$año_actual = date('Y');
+echo $mes_actual;
+echo $año_actual;
+                    
+$sql = 'SELECT * FROM Produccion WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
 $gsent= $pdo->prepare($sql);
-$gsent->execute();
+$gsent->execute(array($mes_actual,$año_actual));
 
 $resultado = $gsent->fetchAll();
 //var_dump($resultado);
 
 //SUMAR DATOS
 $sqlsuma = 'SELECT  SUM(Cantidad) 
-FROM Produccion WHERE MONTH(Fecha) = 01 AND YEAR(Fecha) = 2022';
+FROM Produccion WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
 $gsuma= $pdo->prepare($sqlsuma);
-$gsuma->execute();
+$gsuma->execute(array($mes_actual,$año_actual));
 
 $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
-echo "<pre>";
-var_dump($resultadosuma);
-echo "</pre>";
+//echo "<pre>";
+//var_dump($resultadosuma);
+//echo "</pre>";
 
 ?>
 
@@ -62,9 +66,8 @@ echo "</pre>";
 
             <?php
               if(isset($_GET['enviar']))
-              {
-                  
-                    $año = $_GET['año'];
+              {      
+                   $año = $_GET['año'];
                     $mes = $_GET['mes'];
                     //echo $mes;
                     //echo $año;
@@ -82,11 +85,12 @@ echo "</pre>";
                     $gsuma->execute(array($mes,$año));
 
                     $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
-                    echo "<pre>";
-                    var_dump($resultadosuma);
-                    echo "</pre>";
+                    //echo "<pre>";
+                    //var_dump($resultadosuma);
+                    //echo "</pre>";
+                               
+
                 }  
-            
             ?>
 
             </br>
