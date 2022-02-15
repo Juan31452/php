@@ -55,7 +55,18 @@ $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
             <form method="GET" >
                 <select name="mes" id="mes">
                     <option>01</option>
-                    <option>02</option>  
+                    <option>02</option>
+                    <option>03</option>
+                    <option>04</option>
+                    <option>05</option>
+                    <option>06</option>
+                    <option>07</option>
+                    <option>08</option>
+                    <option>09</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                    <option>Todo</option>                      
                 </select>
                 <select name="año" id="año">
                     <option>2022</option>
@@ -69,26 +80,51 @@ $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
               {      
                    $año = $_GET['año'];
                     $mes = $_GET['mes'];
-                    //echo $mes;
-                    //echo $año;
-                    $sql = 'SELECT * FROM Produccion WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
-                    $gsent= $pdo->prepare($sql);
-                    $gsent->execute(array($mes,$año));
-        
-                    $resultado = $gsent->fetchAll();
-                    //var_dump($resultado);
-                    
-                    //SUMAR DATOS
-                    $sqlsuma = 'SELECT  SUM(Cantidad) 
-                    FROM Produccion WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
-                    $gsuma= $pdo->prepare($sqlsuma);
-                    $gsuma->execute(array($mes,$año));
+                    echo $mes;
+                    echo $año;
 
-                    $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
-                    //echo "<pre>";
-                    //var_dump($resultadosuma);
-                    //echo "</pre>";
-                               
+                    if ($mes == "Todo")
+                    {
+                        $sql = 'SELECT * FROM Produccion WHERE  YEAR(Fecha) = ?';
+                        $gsent= $pdo->prepare($sql);
+                        $gsent->execute(array($año));
+            
+                        $resultado = $gsent->fetchAll();
+                        //var_dump($resultado);
+                    
+                        //SUMAR DATOS
+                        $sqlsuma = 'SELECT  SUM(Cantidad) 
+                        FROM Produccion WHERE YEAR(Fecha) = ?';
+                        $gsuma= $pdo->prepare($sqlsuma);
+                        $gsuma->execute(array($año));
+
+                        $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
+                        //echo "<pre>";
+                        //var_dump($resultadosuma);
+                        //echo "</pre>";
+                        
+                    }else
+                    {
+                        
+                        $sql = 'SELECT * FROM Produccion WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
+                        $gsent= $pdo->prepare($sql);
+                        $gsent->execute(array($mes,$año));
+            
+                        $resultado = $gsent->fetchAll();
+                        //var_dump($resultado);
+                        
+                        //SUMAR DATOS
+                        $sqlsuma = 'SELECT  SUM(Cantidad) 
+                        FROM Produccion WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
+                        $gsuma= $pdo->prepare($sqlsuma);
+                        $gsuma->execute(array($mes,$año));
+
+                        $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
+                        //echo "<pre>";
+                        //var_dump($resultadosuma);
+                        //echo "</pre>";
+                    }    
+                     
 
                 }  
             ?>

@@ -53,6 +53,50 @@ $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
         </div> 
         </br>
         <div class="contenedor1" >
+            <form method="GET" >
+                <select name="mes" id="mes">
+                    <option>01</option>
+                    <option>02</option>  
+                </select>
+                <select name="año" id="año">
+                    <option>2022</option>
+                    <option>2021</option>  
+                </select>
+                <input class="button" type="submit" name ="enviar" value="BUSCAR" />
+            </form>
+
+            <?php
+              if(isset($_GET['enviar']))
+              {      
+                   $año = $_GET['año'];
+                    $mes = $_GET['mes'];
+                    //echo $mes;
+                    //echo $año;
+                    $sql = 'SELECT * FROM Gastos WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
+                    $gsent= $pdo->prepare($sql);
+                    $gsent->execute(array($mes,$año));
+        
+                    $resultado = $gsent->fetchAll();
+                    //var_dump($resultado);
+                    
+                    //SUMAR DATOS
+                    $sqlsuma = 'SELECT  SUM(Valor_Total) 
+                    FROM Gastos WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
+                    $gsuma= $pdo->prepare($sqlsuma);
+                    $gsuma->execute(array($mes,$año));
+
+                    $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
+                    //echo "<pre>";
+                    //var_dump($resultadosuma);
+                    //echo "</pre>";
+                               
+
+                }  
+            ?>
+
+            </br>
+  
+        <div class="contenedor1" >
          <div class="fila">
               <div class="columna">
                  <table border=1>
