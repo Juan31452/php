@@ -1,14 +1,14 @@
 <?php
+require_once('Clases/fecha.php');
 include_once('conexion2.php');
+//se instancia clase fecha_actual
+$objfecha = new fecha_actual(date('m'),date('Y'));
+echo $objfecha->mes_actual;
+echo $objfecha->año_actual;
 //LEER DATOS se reemplaza por BUSCAR DATOS
-$mes_actual = date('m');
-$año_actual = date('Y');
-echo $mes_actual;
-echo $año_actual;
-                    
 $sql = 'SELECT * FROM Produccion WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
 $gsent= $pdo->prepare($sql);
-$gsent->execute(array($mes_actual,$año_actual));
+$gsent->execute(array($objfecha->mes_actual,$objfecha->año_actual));
 
 $resultado = $gsent->fetchAll();
 //var_dump($resultado);
@@ -17,7 +17,7 @@ $resultado = $gsent->fetchAll();
 $sqlsuma = 'SELECT  SUM(Cantidad) 
 FROM Produccion WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
 $gsuma= $pdo->prepare($sqlsuma);
-$gsuma->execute(array($mes_actual,$año_actual));
+$gsuma->execute(array($objfecha->mes_actual,$objfecha->año_actual));
 
 $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
 //echo "<pre>";
