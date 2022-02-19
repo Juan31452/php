@@ -5,6 +5,7 @@ include_once('conexion2.php');
 $objfecha = new fecha_actual(date('m'),date('Y'));
 echo $objfecha->mes_actual;
 echo $objfecha->año_actual;
+
 //LEER DATOS se reemplaza por BUSCAR DATOS
 $sql = 'SELECT * FROM Produccion WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
 $gsent= $pdo->prepare($sql);
@@ -74,8 +75,10 @@ $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
                 </select>
                 <input class="button" type="submit" name ="enviar" value="BUSCAR" />
             </form>
-
             <?php
+              $nommes = $objfecha->nombremes(date('m'));
+              echo "Mes :".$nommes;
+            
               if(isset($_GET['enviar']))
               {      
                    $año = $_GET['año'];

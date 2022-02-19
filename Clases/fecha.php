@@ -19,6 +19,26 @@ class fecha_actual
     {
         echo "<p>En el Destructor de la Clase</p>";
     }
+
+    public function nombremes($mes)
+    {
+       if ($mes==01)
+       {
+          $mes = "Enero";
+          return $mes;
+       }
+       if ($mes==02)
+       {
+          $mes = "Febrero";
+          return $mes;
+       }
+       if ($mes==03)
+       {
+          $mes = "Marzo";
+          return $mes;
+       }
+    }
+
     // Métodos:
     public function getmes_actual() 
     {
