@@ -75,13 +75,14 @@ $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
                 </select>
                 <input class="button" type="submit" name ="enviar" value="BUSCAR" />
             </form>
+            
             <?php
               $nommes = $objfecha->nombremes(date('m'));
-              echo "Mes :".$nommes;
+              echo "Mes Actual :".$nommes;
             
               if(isset($_GET['enviar']))
               {      
-                   $año = $_GET['año'];
+                    $año = $_GET['año'];
                     $mes = $_GET['mes'];
                     echo $mes;
                     echo $año;
