@@ -60,7 +60,7 @@
         $Idproduccion   
         ));
         $resultado_unico = $gsent_unico->fetch();
-          var_dump($resultado_unico); 
+          /*var_dump($resultado_unico);*/ 
 
     }
 
@@ -93,13 +93,13 @@
 
             <?php if ($_GET): ?>
             <h2>EDITAR DATOS</h2>  
-            <form method="GET" action="editar.php" >
+            <form method="GET" action="editarproduccion.php" >
                 FECHA:</br> 
                 <input type="text" class="formulario" name="Fecha"
                 value="<?php echo $resultado_unico['Fecha'] ?>"></br>
                 
                 PRODUCTO:</br> 
-                <input type="text" class="formulario" name="Descripcion"
+                <input type="text" class="formulario" name="Producto"
                 value="<?php echo $resultado_unico['Producto'] ?>"></br>
                 
                 CANTIDAD:</br> 
@@ -107,7 +107,7 @@
                 value="<?php echo $resultado_unico['Cantidad'] ?>"></br>
                 
                 LOTE:</br> 
-                <input type="text" class="formulario" name="Valor_Unitario"
+                <input type="text" class="formulario" name="Lote"
                 value="<?php echo $resultado_unico['Lote'] ?>"></br>
                     
                 <input type="hidden" name="Idproduccion"
