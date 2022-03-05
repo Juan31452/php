@@ -1,32 +1,70 @@
 <?php
-require_once('Clases/fecha.php');
-include_once('conexion2.php');
-//se instancia clase fecha_actual
-$objfecha = new fecha_actual(date('m'),date('Y'));
-echo $objfecha->mes_actual;
-echo $objfecha->año_actual;
+    require_once('Clases/fecha.php');
+    include_once('conexion2.php');
+    //se instancia clase fecha_actual
+    $objfecha = new fecha_actual(date('m'),date('Y'));
+    echo $objfecha->mes_actual;
+    echo $objfecha->año_actual;
 
-//LEER DATOS se reemplaza por BUSCAR DATOS
-$sql = 'SELECT * FROM Produccion WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
-$gsent= $pdo->prepare($sql);
-$gsent->execute(array($objfecha->mes_actual,$objfecha->año_actual));
+    //LEER DATOS se reemplaza por BUSCAR DATOS
+    $sql = 'SELECT * FROM Produccion WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
+    $gsent= $pdo->prepare($sql);
+    $gsent->execute(array($objfecha->mes_actual,$objfecha->año_actual));
 
-$resultado = $gsent->fetchAll();
-//var_dump($resultado);
+    $resultado = $gsent->fetchAll();
+    //var_dump($resultado);
 
-//SUMAR DATOS
-$sqlsuma = 'SELECT  SUM(Cantidad) 
-FROM Produccion WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
-$gsuma= $pdo->prepare($sqlsuma);
-$gsuma->execute(array($objfecha->mes_actual,$objfecha->año_actual));
+    //SUMAR DATOS
+    $sqlsuma = 'SELECT  SUM(Cantidad) 
+    FROM Produccion WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
+    $gsuma= $pdo->prepare($sqlsuma);
+    $gsuma->execute(array($objfecha->mes_actual,$objfecha->año_actual));
 
-$resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
-//echo "<pre>";
-//var_dump($resultadosuma);
-//echo "</pre>";
+    $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
+    //echo "<pre>";
+    //var_dump($resultadosuma);
+    //echo "</pre>";
+
+
+    //ADICIONAR DATOS
+    if ($_POST)
+    {
+        $Fecha = $_POST['Fecha'];
+        $Producto = $_POST['Producto'];
+        $Cantidad =  $_POST['Cantidad'];
+        $Lote =  $_POST['Lote'];
+
+        $sql_agregar = 'INSERT INTO Produccion(Fecha,Producto,
+        Cantidad,Lote)
+        VALUES (?,?,?,?)';
+        $sentencia_agregar = $pdo->prepare($sql_agregar);
+        $sentencia_agregar->execute(array(
+        $Fecha,$Producto,$Cantidad,$Lote 
+        ));
+        /*
+        if ($sql_agregar) {
+            echo "<p>Registro agregado.</p>";
+        } else {
+        echo "<p>No se agregó...</p>";
+        }
+        */
+        header('Location:produccion.php');
+    }
+    //EDITAR DATOS
+    if (isset($_GET['Idproduccion']))
+    {
+        $Idproduccion = $_GET['Idproduccion'];
+        $sql_unico = 'SELECT * FROM Produccion WHERE Idproduccion=?';
+        $gsent_unico= $pdo->prepare($sql_unico);
+        $gsent_unico->execute(array(
+        $Idproduccion   
+        ));
+        $resultado_unico = $gsent_unico->fetch();
+          var_dump($resultado_unico); 
+
+    }
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -46,11 +84,39 @@ $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
                     PRODUCTO:</br> 
                     <input type="text" class="formulario" name="Producto"></br>
                     CANTIDAD:</br> 
-                    <input type="text" class="formulario" name="Cantidad"></br></br>
+                    <input type="text" class="formulario" name="Cantidad"></br>
+                    LOTE:</br> 
+                    <input type="text" class="formulario" name="Lote"></br></br>
                     <button>Agregar</button>
                 </form>
             <?php endif ?>
-        </div> 
+
+            <?php if ($_GET): ?>
+            <h2>EDITAR DATOS</h2>  
+            <form method="GET" action="editar.php" >
+                FECHA:</br> 
+                <input type="text" class="formulario" name="Fecha"
+                value="<?php echo $resultado_unico['Fecha'] ?>"></br>
+                
+                PRODUCTO:</br> 
+                <input type="text" class="formulario" name="Descripcion"
+                value="<?php echo $resultado_unico['Producto'] ?>"></br>
+                
+                CANTIDAD:</br> 
+                <input type="text" class="formulario" name="Cantidad"
+                value="<?php echo $resultado_unico['Cantidad'] ?>"></br>
+                
+                LOTE:</br> 
+                <input type="text" class="formulario" name="Valor_Unitario"
+                value="<?php echo $resultado_unico['Lote'] ?>"></br>
+                    
+                <input type="hidden" name="Idproduccion"
+                value="<?php echo $resultado_unico['Idproduccion'] ?>">
+                <button>Actualizar</button>
+            </form>
+            <?php endif ?>
+            
+                </div> 
         </br>
         <div class="contenedor1" >
             <form method="GET" >
@@ -131,6 +197,8 @@ $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
                      
 
                 }  
+
+            
             ?>
 
             </br>
@@ -141,6 +209,7 @@ $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
                          <td>FECHA</td>
                          <td>PRODUCTO</td>
                          <td>CANTIDAD</td>
+                         <td>LOTE</td>                        
                      </thead>
 
                      <tbody>
@@ -150,6 +219,7 @@ $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
                                      <td width="140"><?php echo $rs['Fecha']; ?></td>
                                      <td><?php echo $rs['Producto']; ?></td>
                                      <td><?php echo $rs['Cantidad']?></td>
+                                     <td><?php echo $rs['Lote']?></td>
                                      <td><a href="produccion.php?Idproduccion=<?php echo $rs['Idproduccion']?>"> Editar </a></td>
 
                                  </tr>
@@ -172,38 +242,7 @@ $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
     </body>
 </html>
 
-<?php
-    include_once('conexion2.php');
-
-    //ADICIONAR DATOS
-    if ($_POST)
-    {
-        $Fecha = $_POST['Fecha'];
-        $Producto = $_POST['Producto'];
-        $Cantidad =  $_POST['Cantidad'];
-        
-        $sql_agregar = 'INSERT INTO Produccion(Fecha,Producto,
-        Cantidad)
-        VALUES (?,?,?)';
-        $sentencia_agregar = $pdo->prepare($sql_agregar);
-        $sentencia_agregar->execute(array(
-        $Fecha,$Producto,$Cantidad 
-        ));
-       /*
-        if ($sql_agregar) {
-            echo "<p>Registro agregado.</p>";
-            } else {
-            echo "<p>No se agregó...</p>";
-        }
-        */
-     header('Location:produccion.php');
-    }
-
-    
- 
-?>
-
-
+  
 <?php
 //cerrar conexion
 $pdo=null;

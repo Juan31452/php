@@ -24,6 +24,8 @@ $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
 //var_dump($resultadosuma);
 //echo "</pre>";
 
+
+
 ?>
 
 <!DOCTYPE html>
@@ -48,6 +50,31 @@ $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
                     VALOR_TOTAL:</br> 
                     <input type="text" class="formulario" name="Valor_Total"></br></br>
                     <button>Agregar</button>
+                </form>
+            <?php endif ?>
+            
+            <?php if ($_GET): ?>
+                <h2>EDITAR DATOS</h2>  
+                <form method="GET" action="editargastos.php" >
+                    FECHA:</br> 
+                    <input type="text" class="formulario" name="Fecha"
+                    value="<?php echo $resultado_unico['Fecha'] ?>"></br>
+                    
+                    PRODUCTO:</br> 
+                    <input type="text" class="formulario" name="Producto"
+                    value="<?php echo $resultado_unico['Producto'] ?>"></br>
+                    
+                    DESCRIPCION:</br> 
+                    <input type="text" class="formulario" name="Descripcion"
+                    value="<?php echo $resultado_unico['Descripcion'] ?>"></br>
+                    
+                    VALOR TOTAL:</br> 
+                    <input type="text" class="formulario" name="Valor_Total"
+                    value="<?php echo $resultado_unico['Valor_Total'] ?>"></br>
+                        
+                    <input type="hidden" name="Idgastos"
+                    value="<?php echo $resultado_unico['Idgastos'] ?>">
+                    <button>Actualizar</button>
                 </form>
             <?php endif ?>
         </div> 
@@ -91,7 +118,20 @@ $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
                     //echo "</pre>";
                                
 
-                }  
+                } 
+                //EDITAR DATOS
+                if (isset($_GET['Idgastos']))
+                {
+                    $Idgastos = $_GET['Idgastos'];
+                    $sql_unico = 'SELECT * FROM Gastos WHERE Idgastos=?';
+                    $gsent_unico= $pdo->prepare($sql_unico);
+                    $gsent_unico->execute(array(
+                    $Idgastos   
+                    ));
+                    $resultado_unico = $gsent_unico->fetch();
+                     var_dump($resultado_unico); 
+
+                } 
             ?>
 
             </br>
@@ -160,9 +200,6 @@ $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
         */
      header('Location:gastos.php');
     }
-
-    
- 
 ?>
 
 
