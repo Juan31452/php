@@ -116,7 +116,7 @@
             </form>
             <?php endif ?>
             
-                </div> 
+        </div> 
         </br>
         <div class="contenedor1" >
             <form method="GET" >
@@ -194,11 +194,8 @@
                         //var_dump($resultadosuma);
                         //echo "</pre>";
                     }    
-                     
-
                 }  
 
-            
             ?>
 
             </br>

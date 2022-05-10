@@ -1,5 +1,7 @@
 <?php
 include_once('conexion2.php');
+require_once('Clases/fecha.php');
+
 //LEER DATOS se reemplaza por BUSCAR DATOS
 $mes_actual = date('m');
 $año_actual = date('Y');
@@ -14,17 +16,15 @@ $resultado = $gsent->fetchAll();
 //var_dump($resultado);
 
 //SUMAR DATOS
-$sqlsuma = 'SELECT  SUM(Valor_Total) 
+$sqlsuma = 'SELECT SUM(Valor_Total) 
 FROM Gastos WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
 $gsuma= $pdo->prepare($sqlsuma);
 $gsuma->execute(array($mes_actual,$año_actual));
 
 $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
-//echo "<pre>";
-//var_dump($resultadosuma);
-//echo "</pre>";
-
-
+echo "<pre>";
+var_dump($resultadosuma);
+echo "</pre>";
 
 ?>
 
@@ -83,7 +83,14 @@ $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
             <form method="GET" >
                 <select name="mes" id="mes">
                     <option>01</option>
-                    <option>02</option>  
+                    <option>02</option> 
+                    <option>03</option>
+                    <option>04</option> 
+                    <option>05</option>
+                    <option>06</option> 
+                    <option>07</option>
+                    <option>08</option> 
+                     
                 </select>
                 <select name="año" id="año">
                     <option>2022</option>
