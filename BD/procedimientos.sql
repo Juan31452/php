@@ -82,6 +82,16 @@ END;
 //
 DELIMITER ;
 
+/*sumar cantidad*/
+DROP PROCEDURE IF EXISTS sumacant;
+DELIMITER //
+CREATE PROCEDURE sumacant(mes DATE, año DATE)
+BEGIN 
+ SELECT * FROM Produccion WHERE MONTH(Fecha) = mes AND YEAR(Fecha) = año
+END;
+//DELIMITER ;
+
+
 Select adicionproducto('Tahiti',23,700,16100);
 Select adicionproducto('Tahiti',6,700);
 Select adicioncompra('2021/04/30',1,23,700);

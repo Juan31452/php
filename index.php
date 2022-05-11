@@ -61,7 +61,7 @@ if ($_POST)
    // header('Location:index.php');
 
     
-}
+}/*
 //EDITAR DATOS
 if (isset($_GET['Idproducto']))
 {
@@ -72,9 +72,9 @@ if (isset($_GET['Idproducto']))
    $Idproducto   
   ));
   $resultado_unico = $gsent_unico->fetch();
-/*  var_dump($resultado_unico); */
+/*  var_dump($resultado_unico); 
 
-}
+}*/
 ?>
 
 <!DOCTYPE html>

@@ -4,7 +4,7 @@ $servidor = "localhost";
 $usuario = "root";
 $password = "";
 
-$servername = "mysql:host=$servidor;dbname=tienda";
+$servername = "mysql:host=$servidor;dbname=TIENDA";
 try{
 // crear conexion
 $pdo=new PDO($servername,$usuario,$password);

@@ -26,9 +26,13 @@ ON UPDATE CASCADE) ENGINE=InnoDB;
  
 
 CREATE TABLE Gastos (Idgastos INT PRIMARY KEY AUTO_INCREMENT,
-Fecha DATE, Producto INT, Descripcion VARCHAR (100),Valor_Total INT, 
+Fecha DATE, Producto TINYINT (3), Descripcion VARCHAR (30),Valor_Total INT, 
 FOREIGN KEY(Producto) REFERENCES Productos(Idproducto) ON DELETE SET NULL 
 ON UPDATE CASCADE)  ENGINE=InnoDB;
+
+CREATE TABLE Lote(Idlote INT PRIMARY KEY, Cantidad INT, FechaSiembra DATE ) ENGINE=InnoDB;
+
+ALTER TABLE Produccion ADD Lote INT;
 
 
 
