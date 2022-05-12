@@ -58,7 +58,8 @@ if (isset($_GET['Idventa']))
     $resultado_unico = $gsent_unico->fetch();
       //var_dump($resultado_unico); 
 
-}?>
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
