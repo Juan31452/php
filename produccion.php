@@ -116,7 +116,11 @@
             </form>
             <?php endif ?>
             
+<<<<<<< HEAD
         </div> 
+=======
+                </div> 
+>>>>>>> feature
         </br>
         <div class="contenedor1" >
             <form method="GET" >
@@ -194,8 +198,16 @@
                         //var_dump($resultadosuma);
                         //echo "</pre>";
                     }    
+<<<<<<< HEAD
                 }  
 
+=======
+                     
+
+                }  
+
+            
+>>>>>>> feature
             ?>
 
             </br>

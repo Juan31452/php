@@ -42,6 +42,14 @@ class fecha_actual
           $mes = "Abril";
           return $mes;
        }
+<<<<<<< HEAD
+=======
+       if ($mes==05)
+       {
+          $mes = "Mayo";
+          return $mes;
+       }
+>>>>>>> feature
        
     }
 
