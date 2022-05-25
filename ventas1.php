@@ -1,4 +1,7 @@
 <?php
+include_once('conexion2.php');
+include_once('calculo.php');
+
 //ADICIONAR DATOS
 if ($_POST)
 {

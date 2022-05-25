@@ -3,7 +3,7 @@
 
     //LEER DATOS
     
-    $sql = 'SELECT * FROM Productos';
+    $sql = 'SELECT * FROM Ventas';
     $gsent= $pdo->prepare($sql);
     $gsent->execute();
 
