@@ -22,8 +22,11 @@ echo $objfecha->año_actual;
 $sql = 'SELECT * FROM Gastos WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
 $gsent= $pdo->prepare($sql);
 $gsent->execute(array($objfecha->mes_actual,$objfecha->año_actual));
+<<<<<<< HEAD
 >>>>>>> feature
 
+=======
+>>>>>>> progresos
 $resultado = $gsent->fetchAll();
 //var_dump($resultado);
 
@@ -46,7 +49,21 @@ var_dump($resultadosuma);
 echo "</pre>";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+//Creamos el JSON
+$json_string = json_encode($resultado);
+echo $json_string;
+
+ foreach($resultado as $rs):
+        echo $rs['Fecha'];
+        echo $rs['Producto'];
+        echo $rs['Descripcion'];
+        echo $rs['Valor_Total'];
+    endforeach ;
+
+>>>>>>> progresos
  //ADICIONAR DATOS
  if ($_POST)
  {

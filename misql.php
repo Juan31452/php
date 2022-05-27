@@ -24,6 +24,12 @@ function consultar($tabla)
     $registro = $consulta->fetch();
     var_dump($registro);
 
+  
+    //Creamos el JSON
+    $json_string = json_encode($registro);
+    echo $json_string;
+
+
     return $tabla;
 
    
