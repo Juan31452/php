@@ -1,7 +1,7 @@
 <?php
     include_once('conexion2.php');
 
-    //LEER DATOS
+    //LEER DATOS VENTAS
     
     $sql = 'SELECT * FROM Ventas';
     $gsent= $pdo->prepare($sql);
