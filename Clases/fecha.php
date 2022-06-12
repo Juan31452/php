@@ -22,44 +22,39 @@ class fecha_actual
 
     public function nombremes($mes)
     {
-       if ($mes==01)
-       {
+        if ($mes==01)
+        {
           $mes = "Enero";
           return $mes;
-       }
-       if ($mes==02)
-       {
+        }
+        if ($mes==02)
+        {
           $mes = "Febrero";
           return $mes;
-       }
-       if ($mes==03)
-       {
+        }
+        if ($mes==03)
+        {
           $mes = "Marzo";
           return $mes;
-       }
-       if ($mes==04)
-       {
+        }
+        if ($mes==04)
+        {
           $mes = "Abril";
           return $mes;
-       }
-<<<<<<< HEAD
-=======
-       if ($mes==05)
-       {
+        }
+        if ($mes==05)
+        {
           $mes = "Mayo";
           return $mes;
-       }
-<<<<<<< HEAD
-       if ($mes==06)
-       {
+        }
+
+        if ($mes==06)
+        {
           $mes = "Junio";
           return $mes;
-       }
-=======
->>>>>>> feature
->>>>>>> refs/remotes/origin/main
+        }
        
-    }
+      }
 
     // Métodos:
     public function getmes_actual() 
