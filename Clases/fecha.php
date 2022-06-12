@@ -47,6 +47,11 @@ class fecha_actual
           $mes = "Mayo";
           return $mes;
        }
+       if ($mes==06)
+       {
+          $mes = "Junio";
+          return $mes;
+       }
        
     }
 
