@@ -42,16 +42,22 @@ class fecha_actual
           $mes = "Abril";
           return $mes;
        }
+<<<<<<< HEAD
+=======
        if ($mes==05)
        {
           $mes = "Mayo";
           return $mes;
        }
+<<<<<<< HEAD
        if ($mes==06)
        {
           $mes = "Junio";
           return $mes;
        }
+=======
+>>>>>>> feature
+>>>>>>> refs/remotes/origin/main
        
     }
 
