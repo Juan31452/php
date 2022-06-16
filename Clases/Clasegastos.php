@@ -5,14 +5,14 @@ Class Claseventas extends DB
 {
   function consulta()
   {
-    $query = $this->connect()->query('SELECT * FROM Ventas');
+    $query = $this->connect()->query('SELECT * FROM Gastos');
     return $query;
   }
 
   function consulta1()
   {
-    $query = $this->connect()->query('SELECT SUM(Cantidad) AS Cantidad,SUM(Valor_Total) AS Valor_Unitario
-     FROM Ventas');
+    $query = $this->connect()->query('SELECT SUM(Valor_Total) AS Valor_Unitario
+     FROM Gastos');
     return $query;
   }
 }
