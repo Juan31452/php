@@ -1,6 +1,6 @@
 <?php
 
-include_once 'Clases/Claseventas.php';
+include_once '../php/Clases/Claseventas.php';
 
 class APIventas
 {

@@ -1,25 +1,25 @@
 <?php
 
-include_once 'Clases/Claseventas.php';
+include_once '../php/Clases/Clasegastos.php';
 
-class APIventas
+class APIgastos
 {
     function getAll(){
-        $miventa = new Claseventas();
+        $migasto = new Clasegastos();
         $gasto = array();
         $gasto = array();
 
-        $res = $miventa->consulta();
+        $res = $migasto->consulta();
 
         if($res->rowCount()){
             while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     
                 $item=array(
-                    "Idventa" => $row['Idgasto'],
+                    "Idgastos" => $row['Idgastos'],
                     "Fecha" => $row['Fecha'],
                     "Producto" => $row['Producto'],
-                    "Cantidad" => $row['Descripcion'],
-                    "Valor_Unitario" => $row['Valor_Total']
+                    "Descripcion" => $row['Descripcion'],
+                    "Valor_Total" => $row['Valor_Total']
 
                 );
                 array_push($gasto,$item);

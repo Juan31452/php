@@ -1,7 +1,7 @@
 <?php 
-include_once '../php/Clases/ConexionPDO.php';
+include_once 'Clases/ConexionPDO.php';
 
-Class Claseventas extends DB
+Class Clasegastos extends DB
 {
   function consulta()
   {
