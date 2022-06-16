@@ -1,119 +1,142 @@
 <?php
-include_once('conexion2.php');
-require_once('Clases/fecha.php');
+    include_once('conexion2.php');
+    require_once('Clases/fecha.php');
 
-<<<<<<< HEAD
-//LEER DATOS se reemplaza por BUSCAR DATOS
-$mes_actual = date('m');
-$año_actual = date('Y');
-echo $mes_actual;
-echo $año_actual;
+    //LEER DATOS se reemplaza por BUSCAR DATOS
+    $mes_actual = date('m');
+    $año_actual = date('Y');
+    echo $mes_actual;
+    echo $año_actual;
 
-$sql = 'SELECT * FROM Gastos WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
-$gsent= $pdo->prepare($sql);
-$gsent->execute(array($mes_actual,$año_actual));
-=======
-//se instancia clase fecha_actual
-$objfecha = new fecha_actual(date('m'),date('Y'));
-echo $objfecha->mes_actual;
-echo $objfecha->año_actual;
+    $sql = 'SELECT * FROM Gastos WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
+    $gsent= $pdo->prepare($sql);
+    $gsent->execute(array($mes_actual,$año_actual));
 
-//LEER DATOS se reemplaza por BUSCAR DATOS
-$sql = 'SELECT * FROM Gastos WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
-$gsent= $pdo->prepare($sql);
-$gsent->execute(array($objfecha->mes_actual,$objfecha->año_actual));
-<<<<<<< HEAD
->>>>>>> feature
+    //se instancia clase fecha_actual
+    $objfecha = new fecha_actual(date('m'),date('Y'));
+    echo $objfecha->mes_actual;
+    echo $objfecha->año_actual;
 
-=======
->>>>>>> progresos
-$resultado = $gsent->fetchAll();
-//var_dump($resultado);
+    //LEER DATOS se reemplaza por BUSCAR DATOS
+    $sql = 'SELECT * FROM Gastos WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
+    $gsent= $pdo->prepare($sql);
+    $gsent->execute(array($objfecha->mes_actual,$objfecha->año_actual));
+    $resultado = $gsent->fetchAll();
+    //var_dump($resultado);
 
-//SUMAR DATOS
-<<<<<<< HEAD
-$sqlsuma = 'SELECT SUM(Valor_Total) 
-FROM Gastos WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
-$gsuma= $pdo->prepare($sqlsuma);
-$gsuma->execute(array($mes_actual,$año_actual));
-=======
-$sqlsuma = 'SELECT  SUM(Valor_Total) 
-FROM Gastos WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
-$gsuma= $pdo->prepare($sqlsuma);
-$gsuma->execute(array($objfecha->mes_actual,$objfecha->año_actual));
->>>>>>> feature
+    //SUMAR DATOS
+    $sqlsuma = 'SELECT SUM(Valor_Total) 
+    FROM Gastos WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
+    $gsuma= $pdo->prepare($sqlsuma);
+    $gsuma->execute(array($mes_actual,$año_actual));
+    $sqlsuma = 'SELECT  SUM(Valor_Total) 
+    FROM Gastos WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
+    $gsuma= $pdo->prepare($sqlsuma);
+    $gsuma->execute(array($objfecha->mes_actual,$objfecha->año_actual));
 
-$resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
-echo "<pre>";
-var_dump($resultadosuma);
-echo "</pre>";
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
-//Creamos el JSON
-$json_string = json_encode($resultado);
-echo $json_string;
+    $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
+    echo "<pre>";
+    var_dump($resultadosuma);
+    echo "</pre>";
 
- foreach($resultado as $rs):
+    //Creamos el JSON
+    $json_string = json_encode($resultado);
+    echo $json_string;
+
+    foreach($resultado as $rs):
         echo $rs['Fecha'];
         echo $rs['Producto'];
         echo $rs['Descripcion'];
         echo $rs['Valor_Total'];
     endforeach ;
 
->>>>>>> progresos
- //ADICIONAR DATOS
- if ($_POST)
- {
-    $Fecha = $_POST['Fecha'];
-    $Producto = $_POST['Producto'];
-    $Descripcion =  $_POST['Descripcion'];
-    $Valor_Total =  $_POST['Valor_Total'];
-     
-    $sql_agregar = 'INSERT INTO Gastos(Fecha,Producto,
-    Descripcion,Valor_Total)
-    VALUES (?,?,?,?)';
-    $sentencia_agregar = $pdo->prepare($sql_agregar);
-    $sentencia_agregar->execute(array(
-    $Fecha,$Producto,$Descripcion,$Valor_Total 
-    ));
-    /*
-     if ($sql_agregar) {
-         echo "<p>Registro agregado.</p>";
-         } else {
-         echo "<p>No se agregó...</p>";
-     }
-     */
-  header('Location:gastos.php');
- }
+    
+    
+    //ADICIONAR DATOS
+    if ($_POST)
+    {
+        $Fecha = $_POST['Fecha'];
+        $Producto = $_POST['Producto'];
+        $Descripcion =  $_POST['Descripcion'];
+        $Valor_Total =  $_POST['Valor_Total'];
+        
+        $sql_agregar = 'INSERT INTO Gastos(Fecha,Producto,
+        Descripcion,Valor_Total)
+        VALUES (?,?,?,?)';
+        $sentencia_agregar = $pdo->prepare($sql_agregar);
+        $sentencia_agregar->execute(array(
+        $Fecha,$Producto,$Descripcion,$Valor_Total 
+        ));
+        /*
+        if ($sql_agregar) {
+            echo "<p>Registro agregado.</p>";
+            } else {
+            echo "<p>No se agregó...</p>";
+        }
+        */
+     header('Location:gastos.php');
+    }
 
- //EDITAR DATOS
- if (isset($_GET['Idgastos']))
- {
-     $Idgastos = $_GET['Idgastos'];
-     $sql_unico = 'SELECT * FROM Gastos WHERE Idgastos=?';
-     $gsent_unico= $pdo->prepare($sql_unico);
-     $gsent_unico->execute(array(
-     $Idgastos   
-     ));
-     $resultado_unico = $gsent_unico->fetch();
-      var_dump($resultado_unico); 
+    //EDITAR DATOS
+    if (isset($_GET['Idgastos']))
+    {
+        $Idgastos = $_GET['Idgastos'];
+        $sql_unico = 'SELECT * FROM Gastos WHERE Idgastos=?';
+        $gsent_unico= $pdo->prepare($sql_unico);
+        $gsent_unico->execute(array(
+        $Idgastos   
+        ));
+        $resultado_unico = $gsent_unico->fetch();
+        var_dump($resultado_unico); 
 
- } 
+    } 
 
->>>>>>> feature
+    if(isset($_GET['enviar']))
+    {      
+        $año = $_GET['año'];
+        $mes = $_GET['mes'];
+        $nommes = $objfecha->nombremes(date('m'));
+        echo "Mes Actual :".$nommes;
+             
+        if(isset($_GET['enviar']))
+        {      
+        $año = $_GET['año'];
+        $mes = $_GET['mes'];
+
+        //echo $mes;
+        //echo $año;
+        $sql = 'SELECT * FROM Gastos WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
+        $gsent= $pdo->prepare($sql);
+        $gsent->execute(array($mes,$año));
+        
+        $resultado = $gsent->fetchAll();
+        //var_dump($resultado);
+                    
+        //SUMAR DATOS
+        $sqlsuma = 'SELECT  SUM(Valor_Total) 
+        FROM Gastos WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
+        $gsuma= $pdo->prepare($sqlsuma);
+        $gsuma->execute(array($mes,$año));
+        $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
+        //echo "<pre>";
+        //var_dump($resultadosuma);
+        //echo "</pre>";
+                               
+
+    } 
+
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
- <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REGISTRO GASTOS</title>
- </head>
+   <head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>REGISTRO GASTOS</title>
+   </head>
     <body>
         <div class="contenedor" >
             <?php if (!$_GET): ?>
@@ -163,18 +186,14 @@ echo $json_string;
                     <option>01</option>
                     <option>02</option> 
                     <option>03</option>
-<<<<<<< HEAD
                     <option>04</option> 
                     <option>05</option>
                     <option>06</option> 
                     <option>07</option>
                     <option>08</option> 
-                     
-=======
                     <option>04</option>
                     <option>05</option>
                     <option>06</option> 
->>>>>>> feature
                 </select>
                 <select name="año" id="año">
                     <option>2022</option>
@@ -183,67 +202,12 @@ echo $json_string;
                 <input class="button" type="submit" name ="enviar" value="BUSCAR" />
             </form>
 
-            <?php
-<<<<<<< HEAD
-              if(isset($_GET['enviar']))
-              {      
-                   $año = $_GET['año'];
-                    $mes = $_GET['mes'];
-=======
-              $nommes = $objfecha->nombremes(date('m'));
-              echo "Mes Actual :".$nommes;
-              
-              if(isset($_GET['enviar']))
-              {      
-                   $año = $_GET['año'];
-                   $mes = $_GET['mes'];
->>>>>>> feature
-                    //echo $mes;
-                    //echo $año;
-                    $sql = 'SELECT * FROM Gastos WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
-                    $gsent= $pdo->prepare($sql);
-                    $gsent->execute(array($mes,$año));
-        
-                    $resultado = $gsent->fetchAll();
-                    //var_dump($resultado);
-                    
-                    //SUMAR DATOS
-                    $sqlsuma = 'SELECT  SUM(Valor_Total) 
-                    FROM Gastos WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?';
-                    $gsuma= $pdo->prepare($sqlsuma);
-                    $gsuma->execute(array($mes,$año));
-
-                    $resultadosuma = $gsuma->fetch(PDO::FETCH_NUM);
-                    //echo "<pre>";
-                    //var_dump($resultadosuma);
-                    //echo "</pre>";
-                               
-
-                } 
-<<<<<<< HEAD
-                //EDITAR DATOS
-                if (isset($_GET['Idgastos']))
-                {
-                    $Idgastos = $_GET['Idgastos'];
-                    $sql_unico = 'SELECT * FROM Gastos WHERE Idgastos=?';
-                    $gsent_unico= $pdo->prepare($sql_unico);
-                    $gsent_unico->execute(array(
-                    $Idgastos   
-                    ));
-                    $resultado_unico = $gsent_unico->fetch();
-                     var_dump($resultado_unico); 
-
-                } 
-=======
->>>>>>> feature
-            ?>
-
-            </br>
-  
+        </div>
+        </br>
         <div class="contenedor1" >
-         <div class="fila">
-              <div class="columna">
-                 <table border=1>
+           <div class="fila">
+               <div class="columna">
+                   <table border=1>
                      <thead>
                          <td>FECHA</td>
                          <td>PRODUCTO</td>
@@ -270,6 +234,7 @@ echo $json_string;
                </div> 
             </div>
        </div>
+       
        <div class="contenedor2" >
           <p> TOTAL : <?php echo $totalsuma =$resultadosuma[0]?> </p>
         </div>
@@ -278,39 +243,8 @@ echo $json_string;
 </html>
 
 <?php
-<<<<<<< HEAD
-    include_once('conexion2.php');
-
-    //ADICIONAR DATOS
-    if ($_POST)
-    {
-        $Fecha = $_POST['Fecha'];
-        $Producto = $_POST['Producto'];
-        $Descripcion =  $_POST['Descripcion'];
-        $Valor_Total =  $_POST['Valor_Total'];
-        
-        $sql_agregar = 'INSERT INTO Gastos(Fecha,Producto,
-        Descripcion,Valor_Total)
-        VALUES (?,?,?,?)';
-        $sentencia_agregar = $pdo->prepare($sql_agregar);
-        $sentencia_agregar->execute(array(
-        $Fecha,$Producto,$Descripcion,$Valor_Total 
-        ));
-       /*
-        if ($sql_agregar) {
-            echo "<p>Registro agregado.</p>";
-            } else {
-            echo "<p>No se agregó...</p>";
-        }
-        */
-     header('Location:gastos.php');
-    }
-?>
 
 
-<?php
-=======
->>>>>>> feature
 //cerrar conexion
 $pdo=null;
 $sentencia_agrega = null;
