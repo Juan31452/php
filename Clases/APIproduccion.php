@@ -1,6 +1,6 @@
 <?php
 
-include_once 'Clases/Claseproduccion.php';
+include_once '../php/Clases/Claseproduccion.php';
 
 class APIproduccion
 {
