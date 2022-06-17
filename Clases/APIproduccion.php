@@ -1,6 +1,6 @@
 <?php
 
-include_once '../php/Clases/Claseproduccion.php';
+include_once ('../php/Clases/Claseproduccion.php');
 
 class APIproduccion
 {
@@ -31,6 +31,35 @@ class APIproduccion
             echo json_encode(array('mensaje' => 'No hay elementos'));
         }
     }
+
+    
+}
+
+class APIcalproduccion
+{
+    function getAll(){
+        $miproduccion = new Claseproduccion();
+        $produccion = array();
+        //$venta = array();
+
+        $res = $miproduccion->consulta1();
+
+        if($res->rowCount()){
+            while ($row = $res->fetch(PDO::FETCH_ASSOC)){
+    
+                $item=array(
+                    "Cantidad" => $row['Cantidad'],
+                    
+                );
+                array_push($produccion,$item);
+            }
+        
+            echo json_encode($produccion);
+        }else{
+            echo json_encode(array('mensaje' => 'No hay elementos'));
+        }
+    }
+
 }
 
 ?>
