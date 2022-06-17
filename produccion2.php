@@ -1,5 +1,5 @@
 <?php
-include_once '../php/Clases/APIproduccion.php.php';
+include_once '../php/Clases/APIproduccion.php';
 
 $api = new APIproduccion();
 

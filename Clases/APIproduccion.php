@@ -7,7 +7,8 @@ class APIproduccion
     function getAll(){
         $miproduccion = new Claseproduccion();
         $produccion = array();
-        $produccion["items"] = array();
+//        $produccion["items"] = array();
+        $produccion = array();
 
         $res = $miproduccion->consulta();
 
@@ -15,13 +16,14 @@ class APIproduccion
             while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     
                 $item=array(
+                    "Idproduccion" => $row['Idproduccion'],
                     "Fecha" => $row['Fecha'],
                     "Producto" => $row['Producto'],
                     "Cantidad" => $row['Cantidad'],
                     "Lote" => $row['Lote']
                     
                 );
-                array_push($produccion["items"], $item);
+                array_push($produccion,$item);
             }
         
             echo json_encode($produccion);
