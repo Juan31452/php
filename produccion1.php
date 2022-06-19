@@ -1,10 +1,24 @@
 <?php
-      include_once('../php/conexion2.php');
-      require_once('Clases/fecha.php');
-  
+      //include_once('../php/conexion2.php');
+      //require_once('Clases/fecha.php');
+      include_once '../php/Clases/APIproduccion.php';
+
+      $api = new APIproduccion();
+      
     //ADICIONAR DATOS
     if ($_POST)
     {
+       $item = array(
+        'Fecha'=> $_POST['Fecha'],
+        'Producto' => $_POST['Producto'],
+        'Cantidad' => $_POST['Cantidad'],
+        'Lote' => $_POST['Lote']
+
+       );
+
+       $api -> agregar($item);
+
+       /*
         $Fecha = $_POST['Fecha'];
         $Producto = $_POST['Producto'];
         $Cantidad =  $_POST['Cantidad'];
