@@ -17,6 +17,14 @@ Class Claseproduccion extends DB
     return $query;
   }
 
+  function consulta2($mes,$año)
+  {
+    $query = $this->connect()->prepare('SELECT SUM(Cantidad) AS Cantidad FROM Produccion 
+    WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?');
+    $query->execute(array($mes,$año));
+    return $query;
+  }
+
   function consulta3($mes,$año)
   {
     $query = $this->connect()->prepare('SELECT * FROM Produccion WHERE MONTH(Fecha) = ? AND YEAR(Fecha) = ?');
